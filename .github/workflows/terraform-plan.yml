@@ -1,0 +1,38 @@
+name: Terraform Plan Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      component:
+        description: 'deployment component'
+        required: true
+        default: deployment-role
+        type: choice
+        options:
+          - deployment-role
+      environment:
+        description: 'deployment environment'
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+      region:
+        description: 'deployment region'
+        required: true
+        default: us-west-2
+        type: choice
+        options:
+          - us-west-2
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  terraform-plan:
+    uses: /Users/bentang/Desktop/terraform-cicd-template/.github/workflows/terraform-plan.yml
+    with:
+      tf_directory: tf/${{ inputs.component }}
+      tf_input_vars_file: tf/app/inputs/${{ inputs.environment }}-${{ inputs.region }}.tfvars
+      tf_backend_file: tf/app/backend/${{ inputs.environment }}-${{ inputs.region }}.tfvars

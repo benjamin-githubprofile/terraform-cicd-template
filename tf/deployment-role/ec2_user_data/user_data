@@ -1,0 +1,8 @@
+sudo apt-get update -y
+sudo apt-get install -y docker.io
+sudo systemctl start docker
+sudo usermod -aG docker ubuntu
+docker login -u bentan18 -p $DOCKER_PWD
+docker pull bentan18/wesave:latest
+docker run -d --name wesave bentan18/wesave:latest
+docker logs wesave
