@@ -1,6 +1,16 @@
 name: Terraform Plan Workflow
 
 on:
+
+  # push:
+  #   branches:
+  #     - demo
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - demo
+  #     - main
+
   workflow_dispatch:
     inputs:
       component:
@@ -31,7 +41,7 @@ defaults:
 
 jobs:
   terraform-plan:
-    uses: /Users/bentang/Desktop/terraform-cicd-template/.github/workflows/terraform-template.yml
+    uses: ./.github/workflows/terraform-template.yml
     with:
       tf_directory: tf/${{ inputs.component }}
       tf_input_vars_file: tf/app/inputs/${{ inputs.environment }}-${{ inputs.region }}.tfvars
