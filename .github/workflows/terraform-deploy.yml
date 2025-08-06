@@ -36,6 +36,3 @@ jobs:
       tf_directory: tf/${{ inputs.component }}
       tf_input_vars_file: inputs/${{ inputs.environment }}-${{ inputs.region }}.tfvars
       tf_backend_file: backend/${{ inputs.environment }}-${{ inputs.region }}.tfvars
-      SP_APPS_PIPELINE_ID: ${{ secrets.SP_APPS_PIPELINE_ID }}
-      CYBERARK_APP_ID: ${{ secrets.CYBERARK_APP_ID }}
-      CYBERARK_SAFE: ${{ secrets.CYBERARK_SAFE }}
