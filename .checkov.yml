@@ -1,20 +1,13 @@
-checkov:
-  quiet: true
-  soft_fail: false
+quiet: true
+framework:
+  - terraform
+output: cli
 
-  framework:
-    - terraform
+skip-path:
+  - .terraform
+  - modules/vendor
 
-  output: cli
-
-  skip_path:
-    - .terraform
-    - modules/vendor
-
-  skip_checks:
-    - CKV_AWS_18
-    - CKV_AWS_52
-    - CKV_AWS_144 
-
-  suppress_inline_comments: true
-
+skip-check:
+  - CKV_AWS_18
+  - CKV_AWS_52
+  - CKV_AWS_144
