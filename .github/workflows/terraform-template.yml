@@ -27,7 +27,7 @@ jobs:
         run: pip install checkov
 
       - name: Run Checkov
-        run: checkov -d ${{ inputs.tf_directory }}
+        run: checkov -d ${{ inputs.tf_directory }} --config-file ../../.checkov.yml
 
       # Install Terraform
       - name: Set up Terraform
