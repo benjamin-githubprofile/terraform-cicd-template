@@ -59,7 +59,3 @@ resource "aws_ec2_instance" "wesave_deployment" {
     }
   }
 }
-
-output "vpc_id" {
-  value = data.vpc.default.id
-}
