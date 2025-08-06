@@ -31,7 +31,7 @@ defaults:
 
 jobs:
   terraform-plan:
-    uses: /Users/bentang/Desktop/terraform-cicd-template/.github/workflows/terraform-plan.yml
+    uses: /Users/bentang/Desktop/terraform-cicd-template/.github/workflows/terraform-template.yml
     with:
       tf_directory: tf/${{ inputs.component }}
       tf_input_vars_file: tf/app/inputs/${{ inputs.environment }}-${{ inputs.region }}.tfvars

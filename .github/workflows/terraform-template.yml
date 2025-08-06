@@ -1,0 +1,51 @@
+name: Terraform Template
+
+on:
+  workflow_call:
+    inputs:
+      tf_directory:
+        required: true
+        type: string
+      tf_input_vars_file:
+        required: true
+        type: string
+      # Remove tf_backend_file if not needed
+
+jobs:
+  run-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Install Python and Checkov
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Checkov
+        run: pip install checkov
+
+      - name: Run Checkov
+        run: checkov -d ${{ inputs.tf_directory }} --config-file .checkov.yml
+
+      # Install Terraform
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # Install TFLint
+      - name: Set up TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Init TFLint plugins
+        run: tflint --init
+
+      - name: Run TFLint
+        run: tflint --config=./tflint.hcl --recursive
+
+      # Terraform commands
+      - name: Terraform Init
+        run: terraform -chdir=${{ inputs.tf_directory }} init -input=false
+
+      - name: Terraform Plan
+        run: terraform -chdir=${{ inputs.tf_directory }} plan -var-file=${{ inputs.tf_input_vars_file }}
